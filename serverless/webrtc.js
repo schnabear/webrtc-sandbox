@@ -1,13 +1,12 @@
 'use strict';
 
-var config = {'iceServers': [{'url': 'stun:stun.services.mozilla.com'}, {'url': 'stun:stun.l.google.com:19302'}]};
-var optional = {'optional': [{'DtlsSrtpKeyAgreement': true}]};
-// var optional = {'optional': [{'DtlsSrtpKeyAgreement': true}, {'RtpDataChannels': true}]};
+var pcConfig = {'iceServers': [{'urls': 'stun:stun.services.mozilla.com'}, {'urls': 'stun:stun.l.google.com:19302'}]};
+var pcConstraints = {'optional': [{'DtlsSrtpKeyAgreement': true}/*, {'RtpDataChannels': true}*/]};
 var sdpConstraints = {
-    optional: [],
-    mandatory: {
-        OfferToReceiveAudio: false,
-        OfferToReceiveVideo: false
+    'optional': [],
+    'mandatory': {
+        'OfferToReceiveAudio': false,
+        'OfferToReceiveVideo': false
     }
 };
 
@@ -24,7 +23,7 @@ function trace(text) {
 }
 
 function createPeerConnection() {
-    var pc = new RTCPeerConnection(config, optional);
+    var pc = new RTCPeerConnection(pcConfig, pcConstraints);
     pc.onicecandidate = function(e) {
         console.log('PC onICECandidate Event');
         console.log(e);
@@ -121,10 +120,7 @@ function createAnswer(pc) {
     }, sdpConstraints);
 }
 
-// isCaller set at HTML TRUE or FALSE
-
 var isCaller = window.confirm('isCaller Initialization');
-
 var localPC = createPeerConnection();
 
 if (isCaller) {
