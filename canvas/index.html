@@ -141,10 +141,10 @@ ConnectionStorage.prototype = {
         }, this);
     },
     delete: function(identifier) {
-        if (this.dcwStorage[identifier].pc !== undefined || this.pcwStorage[identifier].pc !== null) {
+        if (typeof this.dcwStorage[identifier].pc !== 'undefined' && this.pcwStorage[identifier].pc !== null) {
             this.pcwStorage[identifier].pc = null;
         }
-        if (this.dcwStorage[identifier].dc !== undefined || this.dcwStorage[identifier].dc !== null) {
+        if (typeof this.dcwStorage[identifier].dc !== 'undefined' && this.dcwStorage[identifier].dc !== null) {
             this.dcwStorage[identifier].dc = null;
         }
         delete this.pcwStorage[identifier];
