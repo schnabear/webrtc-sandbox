@@ -30,14 +30,18 @@ var rule = {
                         ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 1028"
                     },
                     "candidate:answer": {
-                        ".write": "!data.exists() && newData.exists()",
-                        ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 1028"
+                        "$CANDIDATE": {
+                            ".write": "!data.exists() && newData.exists()",
+                            ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 1028"
+                        }
                     },
                     "candidate:offer": {
-                        ".write": "!data.exists() && newData.exists()",
-                        ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 1028"
+                        "$CANDIDATE": {
+                            ".write": "!data.exists() && newData.exists()",
+                            ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 1028"
+                        }
                     }
-                }  
+                }
             }
         }
     }

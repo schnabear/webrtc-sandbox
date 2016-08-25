@@ -32,27 +32,27 @@ function createPeerConnection() {
         } else {
             console.log(JSON.stringify(e.candidate));
         }
-    }
+    };
     pc.onaddstream = function(e) {
         console.log('PC onAddStream Event');
         console.log(e);
-    }
+    };
     pc.onconnection = function(e) {
         console.log('PC onConnection Event');
         console.log(e);
-    }
+    };
     pc.onsignalingstatechange = function(e) {
         console.log('PC onSignalingStateChange Event');
         console.log(e);
-    }
+    };
     pc.oniceconnectionstatechange = function(e) {
         console.log('PC onIceConnectionStateChange Event');
         console.log(e);
-    }
+    };
     pc.onicegatheringstatechange = function(e) {
         console.log('PC onIceGatheringStateChange Event');
         console.log(e);
-    }
+    };
     return pc;
 }
 

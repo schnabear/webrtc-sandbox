@@ -76,10 +76,10 @@ ConnectionStorage.prototype = {
         }, this);
     },
     delete: function(identifier) {
-        if (typeof this.dcwStorage[identifier].pc !== 'undefined' && this.pcwStorage[identifier].pc !== null) {
+        if (typeof this.dcwStorage[identifier]['pc'] !== 'undefined') {
             this.pcwStorage[identifier].pc = null;
         }
-        if (typeof this.dcwStorage[identifier].dc !== 'undefined' && this.dcwStorage[identifier].dc !== null) {
+        if (typeof this.dcwStorage[identifier]['dc'] !== 'undefined') {
             this.dcwStorage[identifier].dc = null;
         }
         delete this.pcwStorage[identifier];
@@ -321,9 +321,9 @@ ss.receive(ROOM, 'peer/' + UID, 'child_added', function(snapshot) {
             return;
         }
 
-        pcw.pc.onicecandidate = null;
+        // pcw.pc.onicecandidate = null;
         console.log(JSON.stringify(e.candidate));
-        ss.send(ROOM, 'handshake/' + KEY + '/candidate:answer', JSON.stringify(e.candidate));
+        ss.send(ROOM, 'handshake/' + KEY + '/candidate:answer/' + RandomGenerator.id(), JSON.stringify(e.candidate));
     });
     pcw.onIceConnectionStateChange(function(e) {
         console.log('PC onIceConnectionStateChange Event');
@@ -360,10 +360,10 @@ ss.receive(ROOM, 'peer/' + UID, 'child_added', function(snapshot) {
         }, sdpConstraints);
         ss.detach(ROOM, 'handshake/' + KEY + '/offer', 'value', receiveSession);
     });
-    var receiveCandidate = ss.receive(ROOM, 'handshake/' + KEY + '/candidate:offer', 'value', function(snapshot) {
-        var candidate = snapshot.val();
-        pcw.addIceCandidate(candidate);
-        ss.detach(ROOM, 'handshake/' + KEY + '/candidate:offer', 'value', receiveCandidate);
+    var receiveCandidate = ss.receive(ROOM, 'handshake/' + KEY + '/candidate:offer', 'child_added', function(snapshot) {
+        // var candidateID = snapshot.key();
+        var candidateValue = snapshot.val();
+        pcw.addIceCandidate(candidateValue);
     });
 });
 ss.receive(ROOM, 'ping', 'child_added', function(snapshot) {
@@ -394,9 +394,9 @@ ss.receive(ROOM, 'ping', 'child_added', function(snapshot) {
             return;
         }
 
-        pcw.pc.onicecandidate = null;
+        // pcw.pc.onicecandidate = null;
         console.log(JSON.stringify(e.candidate));
-        ss.send(ROOM, 'handshake/' + KEY + '/candidate:offer', JSON.stringify(e.candidate));
+        ss.send(ROOM, 'handshake/' + KEY + '/candidate:offer/' + RandomGenerator.id(), JSON.stringify(e.candidate));
     });
     pcw.onIceConnectionStateChange(function(e) {
         console.log('PC onIceConnectionStateChange Event');
@@ -434,10 +434,10 @@ ss.receive(ROOM, 'ping', 'child_added', function(snapshot) {
         pcw.handleSession(session);
         ss.detach(ROOM, 'handshake/' + KEY + '/answer', 'value', receiveSession);
     });
-    var receiveCandidate = ss.receive(ROOM, 'handshake/' + KEY + '/candidate:answer', 'value', function(snapshot) {
-        var candidate = snapshot.val();
-        pcw.addIceCandidate(candidate);
-        ss.detach(ROOM, 'handshake/' + KEY + '/candidate:answer', 'value', receiveCandidate);
+    var receiveCandidate = ss.receive(ROOM, 'handshake/' + KEY + '/candidate:answer', 'child_added', function(snapshot) {
+        // var candidateID = snapshot.key();
+        var candidateValue = snapshot.val();
+        pcw.addIceCandidate(candidateValue);
     });
 });
 ss.send(ROOM, 'ping/' + UID, Firebase.ServerValue.TIMESTAMP);
