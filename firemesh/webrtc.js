@@ -273,6 +273,11 @@ iceServers.push({'urls': 'stun:stun.services.mozilla.com'});
 iceServers.push({'urls': 'stun:stun.l.google.com:19302'});
 iceServers.push({'urls': 'stun:stun.anyfirewall.com:3478'});
 iceServers.push({'urls': 'turn:turn.bistri.com:80', 'credential': 'webrtc', 'username': 'webrtc'});
+iceServers.push({'urls': 'turn:turn.bistri.com:80', 'credential': 'homeo', 'username': 'homeo'});
+iceServers.push({'urls': 'turn:turn.anyfirewall.com:443?transport=tcp', 'credential': 'webrtc', 'username': 'webrtc'});
+iceServers.push({'urls': 'turn:numb.viagenie.ca', 'credential': 'muazkh', 'username': 'webrtc@live.com'});
+iceServers.push({'urls': 'turn:192.158.29.39:3478?transport=udp', 'credential': 'JZEOEt2V3Qb0y27GRntt2u2PAYA=', 'username': '28224511:1379330808'});
+iceServers.push({'urls': 'turn:192.158.29.39:3478?transport=tcp', 'credential': 'JZEOEt2V3Qb0y27GRntt2u2PAYA=', 'username': '28224511:1379330808'});
 var pcConfig = {'iceServers': iceServers};
 var pcConstraints = {'optional': [{'DtlsSrtpKeyAgreement': true}/*, {'RtpDataChannels': true}*/]};
 if (window.mozRTCPeerConnection) {
